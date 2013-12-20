@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <h1>Задача: ${task?.name}</h1>
+    <h1>Задача: ${taskInstance?.name}</h1>
 
 </body>
 </html>
