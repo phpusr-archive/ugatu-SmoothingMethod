@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <g:set var="toFixed" value="toFixed(2)" />
     <div ng-app="app" ng-controller="TaskShowController">
         <h1>Задача: {{data.task.name}}</h1>
 
@@ -30,19 +31,27 @@
                 <td>{{$index+1}}</td>
                 <td>{{d.title}}</td>
                 <td>{{d.value}}</td>
-                <td>{{d.expAvg1.toFixed(2)}}</td>
-                <td>{{d.expAvg2.toFixed(2)}}</td>
-                <td>{{d.avgError1.toFixed(2)}}</td>
-                <td>{{d.avgError2.toFixed(2)}}</td>
+                <td>{{d.expAvg1.${toFixed}}}</td>
+                <td>{{d.expAvg2.${toFixed}}}</td>
+                <td>{{d.avgError1.${toFixed}}}</td>
+                <td>{{d.avgError2.${toFixed}}}</td>
+            </tr>
+            <tr>
+                <td colspan="5">Итого:</td>
+                <td>{{data.sumAvgError1.${toFixed}}}</td>
+                <td>{{data.sumAvgError2.${toFixed}}}</td>
             </tr>
             <tr>
                 <td></td>
                 <td>{{data.forecast.title}}</td>
-                <td>{{data.forecast.value}}</td>
-                <td>{{data.forecast.expAvg1.toFixed(2)}}</td>
-                <td>{{data.forecast.expAvg2.toFixed(2)}}</td>
+                <td></td>
+                <td>{{data.forecast.expAvg1.${toFixed}}}</td>
+                <td>{{data.forecast.expAvg2.${toFixed}}}</td>
             </tr>
         </table>
+
+        <h3>&epsilon;1 = {{data.epsilon1.${toFixed}}}</h3>
+        <h3>&epsilon;2 = {{data.epsilon2.${toFixed}}}</h3>
     </div>
 </body>
 </html>

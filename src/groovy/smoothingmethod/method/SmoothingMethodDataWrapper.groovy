@@ -13,4 +13,9 @@ class SmoothingMethodDataWrapper {
     List<SmoothingMethodData> taskData
     SmoothingMethodData forecast
     Double a
+
+    Double sumAvgError1
+    Double sumAvgError2
+    Double epsilon1
+    Double epsilon2
 }
