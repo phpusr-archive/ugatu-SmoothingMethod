@@ -1,5 +1,6 @@
 /.idea
 /*.iml
 
-/target
 /resources/database/devDb
+/target/stacktrace.log
+/target/work/web.xml.tmp
