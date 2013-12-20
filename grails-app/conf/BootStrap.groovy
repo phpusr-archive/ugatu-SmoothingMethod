@@ -1,6 +1,6 @@
 import grails.util.GrailsUtil
-import smoothingmethod.Task
-import smoothingmethod.TaskData
+import smoothingmethod.method.Task
+import smoothingmethod.method.TaskData
 import util.PropUtil
 
 class BootStrap {

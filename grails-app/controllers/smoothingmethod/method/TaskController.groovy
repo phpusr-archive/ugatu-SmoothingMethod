@@ -1,8 +1,6 @@
-package smoothingmethod
+package smoothingmethod.method
 
 import grails.converters.JSON
-import grails.converters.XML
-
 
 class TaskController {
 

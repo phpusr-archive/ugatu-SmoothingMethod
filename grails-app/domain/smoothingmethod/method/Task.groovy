@@ -1,4 +1,4 @@
-package smoothingmethod
+package smoothingmethod.method
 
 /**
  * Задача

@@ -1,4 +1,4 @@
-package smoothingmethod
+package smoothingmethod.method
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
