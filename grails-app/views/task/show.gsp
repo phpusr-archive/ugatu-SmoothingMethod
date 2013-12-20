@@ -37,10 +37,10 @@
             </tr>
             <tr>
                 <td></td>
-                <td>{{data.last.title}}</td>
-                <td>{{data.last.value}}</td>
-                <td>{{data.last.expAvg1.toFixed(2)}}</td>
-                <td>{{data.last.expAvg2.toFixed(2)}}</td>
+                <td>{{data.forecast.title}}</td>
+                <td>{{data.forecast.value}}</td>
+                <td>{{data.forecast.expAvg1.toFixed(2)}}</td>
+                <td>{{data.forecast.expAvg2.toFixed(2)}}</td>
             </tr>
         </table>
     </div>

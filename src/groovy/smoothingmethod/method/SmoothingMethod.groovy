@@ -24,8 +24,9 @@ class SmoothingMethod {
     double getA() { a }
 
     /** TODO */
-    List<SmoothingMethod> calc() {
-        List<SmoothingMethod> smDataList = []
+    SmoothingMethodDataWrapper calc() {
+        println('>>calc()') //TODO
+        List<SmoothingMethodData> smDataList = new LinkedList<SmoothingMethodData>()
 
         Double UVar1 = getU0Var1()
         Double UVar2 = getU0Var2()
@@ -44,7 +45,7 @@ class SmoothingMethod {
         }
         taskDataList.remove(taskDataList.size()-1)
 
-        return smDataList
+        return new SmoothingMethodDataWrapper(taskData: smDataList, forecast: smDataList.removeLast())
     }
 
     Double getU0Var1() {
@@ -62,7 +63,6 @@ class SmoothingMethod {
 
     /** Расчет средней относительной ошибки */
     private static Double calcAvgError(Double yFact, Double yCalc) {
-        println "yFact: $yFact, yCalc: $yCalc"
         return Math.abs(yFact - yCalc) / yFact * 100
     }
 

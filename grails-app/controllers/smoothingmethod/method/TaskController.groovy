@@ -1,5 +1,7 @@
 package smoothingmethod.method
 
+import grails.converters.JSON
+
 class TaskController {
 
     def index() {
@@ -15,10 +17,14 @@ class TaskController {
 
     def show(Task task) {
 
-        SmoothingMethod smoothingMethod = new SmoothingMethod(task)
-        LinkedList<SmoothingMethod> list = new LinkedList(smoothingMethod.calc())
-
-        respond task: task, taskData: list, a: smoothingMethod.getA(), last: list.removeLast()
+        withFormat {
+            html task: task
+            json {
+                SmoothingMethodDataWrapper dataWrapper = new SmoothingMethod(task).calc()
+                //JSON.use('deep')
+                render dataWrapper as JSON
+            }
+        }
     }
 
 }
