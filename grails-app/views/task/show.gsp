@@ -8,7 +8,8 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>%{--TODO--}%</title>
+    <g:set var="title" value="Задача: ${task.name}" />
+    <title>${title}</title>
     <r:require module="angularApp" />
 </head>
 
@@ -17,7 +18,7 @@
 <g:set var="toFixed" value="toFixed(2)" />
 
 <div ng-app="app" ng-controller="TaskShowController">
-    <h1>Задача: {{data.task.name}}</h1>
+    <h1>${title}</h1>
 
     <h3>a = {{data.a}}</h3>
 
