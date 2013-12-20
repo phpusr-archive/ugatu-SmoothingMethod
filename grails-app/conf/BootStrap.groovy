@@ -1,5 +1,6 @@
 import grails.util.GrailsUtil
 import smoothingmethod.Task
+import smoothingmethod.TaskData
 import util.PropUtil
 
 class BootStrap {
@@ -12,7 +13,9 @@ class BootStrap {
 
         if (ret == 'nothing') return
 
-        new Task(name: 'Test').save(failOnError: true)
+        def task1 = new Task(name: 'Test').save(failOnError: true)
+
+        new TaskData(task: task1, title: 'Title', value: 100500).save(failOnError: true)
 
     }
     def destroy = {

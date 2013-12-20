@@ -10,7 +10,7 @@ class TaskController {
 
         def taskList = Task.list()
 
-        [taskList: taskList]
+        respond taskList
     }
 
 }

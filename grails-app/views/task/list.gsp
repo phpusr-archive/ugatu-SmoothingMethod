@@ -15,7 +15,7 @@
     <h1><g:message code="task.title.label" /></h1>
 
     <ul>
-        <g:each in="${taskList}" var="task">
+        <g:each in="${taskInstanceList}" var="task">
             <li><g:link action="show"><g:fieldValue field="name" bean="${task}"/></g:link></li>
         </g:each>
     </ul>
