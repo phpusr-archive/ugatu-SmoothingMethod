@@ -1,7 +1,8 @@
-package smoothingmethod
+package smoothingmethod.test
 
 import grails.converters.JSON
 import grails.converters.XML
+import smoothingmethod.Task
 
 /**
  * Контроллер для тестирования всяких штук
