@@ -16,7 +16,7 @@
 
     <ul>
         <g:each in="${taskInstanceList}" var="task">
-            <li><g:link action="show"><g:fieldValue field="name" bean="${task}"/></g:link></li>
+            <li><g:link action="show" id="${task.id}"><g:fieldValue field="name" bean="${task}"/></g:link></li>
         </g:each>
     </ul>
 
