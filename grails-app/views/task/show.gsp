@@ -33,13 +33,13 @@
                 <td>{{d.value}}</td>
                 <td>{{d.expAvg1.${toFixed}}}</td>
                 <td>{{d.expAvg2.${toFixed}}}</td>
-                <td>{{d.avgError1.${toFixed}}}</td>
-                <td>{{d.avgError2.${toFixed}}}</td>
+                <td>{{d.relativeError1.${toFixed}}}</td>
+                <td>{{d.relativeError2.${toFixed}}}</td>
             </tr>
             <tr>
                 <td colspan="5">Итого:</td>
-                <td>{{data.sumAvgError1.${toFixed}}}</td>
-                <td>{{data.sumAvgError2.${toFixed}}}</td>
+                <td>{{data.sumRelativeError1.${toFixed}}}</td>
+                <td>{{data.sumRelativeError2.${toFixed}}}</td>
             </tr>
             <tr>
                 <td></td>

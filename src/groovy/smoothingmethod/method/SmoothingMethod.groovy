@@ -12,12 +12,16 @@ import smoothingmethod.constants.AppConst
  * Метод экспоненциального сглаживания
  */
 class SmoothingMethod {
+    /** Задача */
     private Task task
+    /** Данные задачи */
     private List<TaskData> taskDataList
+    /** Кол-во данных задачи */
     private int taskDataSize
     /** Параметр сглаживания */
     private double a
 
+    /** Конструктор метода */
     SmoothingMethod(Task task) {
         this.task = task
         taskDataList = task.data.sort{it.id}
@@ -33,18 +37,18 @@ class SmoothingMethod {
 
         Double UVar1 = getU0Var1()
         Double UVar2 = getU0Var2()
-        Double sumAvgError1 = 0, sumAvgError2 = 0
+        Double sumRelativeError1 = 0, sumRelativeError2 = 0
 
         taskDataList << new TaskData(title: 'Прогноз на Ноябрь', value: taskDataList.last().value) //Иметь в виду, что влияет на size() //TODO
         taskDataList.eachWithIndex { taskData, i ->
             SmoothingMethodData smData = new SmoothingMethodData(title: taskData.title, value: taskData.value)
             smData.expAvg1 = UVar1
             smData.expAvg2 = UVar2
-            smData.avgError1 = calcAvgError(taskData.value, UVar1)
-            smData.avgError2 = calcAvgError(taskData.value, UVar2)
+            smData.relativeError1 = calcAvgError(taskData.value, UVar1)
+            smData.relativeError2 = calcAvgError(taskData.value, UVar2)
             if (i < taskDataSize) {
-                sumAvgError1 += smData.avgError1
-                sumAvgError2 += smData.avgError2
+                sumRelativeError1 += smData.relativeError1
+                sumRelativeError2 += smData.relativeError2
             }
             UVar1 = calcExpAvg(taskData.value, UVar1)
             UVar2 = calcExpAvg(taskData.value, UVar2)
@@ -55,7 +59,8 @@ class SmoothingMethod {
 
 
         SmoothingMethodDataWrapper dataWrapper = new SmoothingMethodDataWrapper(taskData: smDataList, forecast: smDataList.removeLast(), a: a,
-                sumAvgError1: sumAvgError1, sumAvgError2: sumAvgError2, epsilon1: sumAvgError1/taskDataSize, epsilon2: sumAvgError2/taskDataSize)
+                sumRelativeError1: sumRelativeError1, sumRelativeError2: sumRelativeError2,
+                epsilon1: sumRelativeError1/taskDataSize, epsilon2: sumRelativeError2/taskDataSize)
         dataWrapper.forecastAccuracy = checkForecastAccuracy(dataWrapper.epsilon1) && checkForecastAccuracy(dataWrapper.epsilon2)
 
         return dataWrapper
@@ -66,12 +71,12 @@ class SmoothingMethod {
         return value >= AppConst.FORECAST_ACCURACY_VALUE1 && value <= AppConst.FORECAST_ACCURACY_VALUE2
     }
 
-    /** Начальное значение U0 (Вариант 1) */
+    /** Начальное значение v1 (U0) */
     private Double getU0Var1() {
         return taskDataList.sum{it.value} / taskDataSize
     }
 
-    /** Начальное значение U0 (Вариант 2) */
+    /** Начальное значение v2 (U0) */
     private Double getU0Var2() {
         return taskDataList.getAt(0).value
     }
