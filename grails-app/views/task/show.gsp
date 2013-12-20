@@ -4,7 +4,7 @@
  * Time: 12:34
 --}%
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="smoothingmethod.constants.AppConst" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -52,6 +52,9 @@
 
         <h3>&epsilon;1 = {{data.epsilon1.${toFixed}}}</h3>
         <h3>&epsilon;2 = {{data.epsilon2.${toFixed}}}</h3>
+
+        <h4 ng-show="data.forecastAccuracy">В каждом случае точность прогноза является удовлетворительной, поскольку средняя относительная ошибка попадает в пределы ${AppConst.FORECAST_ACCURACY_VALUE1}-${AppConst.FORECAST_ACCURACY_VALUE2}%.</h4>
+        <h4 ng-hide="data.forecastAccuracy">Не в каждом случае точность прогноза является удовлетворительной, поскольку средняя относительная ошибка не попадает в пределы ${AppConst.FORECAST_ACCURACY_VALUE1}-${AppConst.FORECAST_ACCURACY_VALUE2}%.</h4>
     </div>
 </body>
 </html>

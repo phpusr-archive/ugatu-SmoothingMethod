@@ -18,4 +18,7 @@ class SmoothingMethodDataWrapper {
     Double sumAvgError2
     Double epsilon1
     Double epsilon2
+
+    /** Удовлитворительна ли точность прогноза */
+    boolean forecastAccuracy
 }

@@ -1,5 +1,7 @@
 package smoothingmethod.method
 
+import smoothingmethod.constants.AppConst
+
 /**
  * @author phpusr
  * Date: 20.12.13
@@ -7,12 +9,13 @@ package smoothingmethod.method
  */
 
 /**
- * TODO
+ * Метод экспоненциального сглаживания
  */
 class SmoothingMethod {
     private Task task
     private List<TaskData> taskDataList
     private int taskDataSize
+    /** Параметр сглаживания */
     private double a
 
     SmoothingMethod(Task task) {
@@ -23,9 +26,7 @@ class SmoothingMethod {
         a = 0.2 //TODO
     }
 
-    double getA() { a }
-
-    /** TODO */
+    /** Расчет метода */
     SmoothingMethodDataWrapper calc() {
         println('>>calc()') //TODO
         List<SmoothingMethodData> smDataList = new LinkedList<SmoothingMethodData>()
@@ -53,22 +54,29 @@ class SmoothingMethod {
         taskDataList.remove(taskDataSize)
 
 
-        SmoothingMethodDataWrapper dataWrapper = new SmoothingMethodDataWrapper(taskData: smDataList, forecast: smDataList.removeLast(),
+        SmoothingMethodDataWrapper dataWrapper = new SmoothingMethodDataWrapper(taskData: smDataList, forecast: smDataList.removeLast(), a: a,
                 sumAvgError1: sumAvgError1, sumAvgError2: sumAvgError2, epsilon1: sumAvgError1/taskDataSize, epsilon2: sumAvgError2/taskDataSize)
-
+        dataWrapper.forecastAccuracy = checkForecastAccuracy(dataWrapper.epsilon1) && checkForecastAccuracy(dataWrapper.epsilon2)
 
         return dataWrapper
     }
 
-    Double getU0Var1() {
+    /** Проверка точности прогноза */
+    private static boolean checkForecastAccuracy(Double value) {
+        return value >= AppConst.FORECAST_ACCURACY_VALUE1 && value <= AppConst.FORECAST_ACCURACY_VALUE2
+    }
+
+    /** Начальное значение U0 (Вариант 1) */
+    private Double getU0Var1() {
         return taskDataList.sum{it.value} / taskDataSize
     }
 
-    Double getU0Var2() {
+    /** Начальное значение U0 (Вариант 2) */
+    private Double getU0Var2() {
         return taskDataList.getAt(0).value
     }
 
-    /** Расчте экспоненциально взвешенной средней Ut */
+    /** Расчет экспоненциально взвешенной средней (Ut) */
     private Double calcExpAvg(Double y, Double U) {
         return a * y + (1 - a) * U
     }
