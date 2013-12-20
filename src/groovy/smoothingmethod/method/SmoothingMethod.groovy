@@ -39,7 +39,7 @@ class SmoothingMethod {
         Double UVar2 = getU0Var2()
         Double sumRelativeError1 = 0, sumRelativeError2 = 0
 
-        taskDataList << new TaskData(title: 'Прогноз на Ноябрь', value: taskDataList.last().value) //Иметь в виду, что влияет на size() //TODO
+        taskDataList << new TaskData(title: task.titleForecast, value: taskDataList.last().value)
         taskDataList.eachWithIndex { taskData, i ->
             SmoothingMethodData smData = new SmoothingMethodData(title: taskData.title, value: taskData.value)
             smData.expAvg1 = UVar1
@@ -58,7 +58,7 @@ class SmoothingMethod {
         taskDataList.remove(taskDataSize)
 
 
-        SmoothingMethodDataWrapper dataWrapper = new SmoothingMethodDataWrapper(taskData: smDataList, forecast: smDataList.removeLast(), a: a,
+        SmoothingMethodDataWrapper dataWrapper = new SmoothingMethodDataWrapper(task: task, taskData: smDataList, forecast: smDataList.removeLast(), a: a,
                 sumRelativeError1: sumRelativeError1, sumRelativeError2: sumRelativeError2,
                 epsilon1: sumRelativeError1/taskDataSize, epsilon2: sumRelativeError2/taskDataSize)
         dataWrapper.forecastAccuracy = checkForecastAccuracy(dataWrapper.epsilon1) && checkForecastAccuracy(dataWrapper.epsilon2)

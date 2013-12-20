@@ -10,6 +10,8 @@ package smoothingmethod.method
  * Данные для метода: Экспоненциального сглаживания
  */
 class SmoothingMethodDataWrapper {
+    /** Задача */
+    Task task
     /** Данные задачи */
     List<SmoothingMethodData> taskData
     /** Прогноз */
