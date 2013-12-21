@@ -10,6 +10,7 @@ class Task {
         titleTitle blank: false
         titleValue blank: false
         titleForecast blank: false
+        smoothingParameter()
     }
 
     /** Данные задачи */
@@ -23,5 +24,7 @@ class Task {
     String titleValue
     /** Заголовок для прогноза */
     String titleForecast
+    /** Параметр сглаживания */
+    Double smoothingParameter
 
 }

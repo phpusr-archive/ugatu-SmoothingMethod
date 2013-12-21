@@ -20,7 +20,7 @@
 <div ng-app="app" ng-controller="TaskShowController">
     <h1>${title}</h1>
 
-    <h3>a = {{data.a}}</h3>
+    <label>a = <input type="text" ng-model="data.a" ng-change="updateView(data.a)" /></label>
 
     <table>
         <tr>

@@ -4,14 +4,19 @@
 
 var controllers = angular.module('controllers', []);
 
-controllers.controller('TaskShowController', ['$scope', '$http', '$location',
-    function($scope, $http, $location) {
-        $http.get($location.absUrl() + '.json').success(function(data) {
+controllers.controller('TaskShowController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+
+    /** Обновление содержимого страницы */
+    $scope.updateView = function(a) {
+        $http.get($location.absUrl() + '.json?a=' + a).success(function(data) {
             $scope.data = data;
             console.log(data);
         });
-    }
-]);
+    };
+
+    $scope.updateView();
+
+}]);
 
 //------------Example------------
 controllers.controller('PhoneListCtrl', ['$scope', 'Phone',
@@ -30,4 +35,5 @@ controllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Phone',
         $scope.setImage = function(imageUrl) {
             $scope.mainImageUrl = imageUrl;
         }
-    }]);
+    }
+]);

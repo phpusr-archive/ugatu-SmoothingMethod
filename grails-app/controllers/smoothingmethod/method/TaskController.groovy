@@ -15,12 +15,13 @@ class TaskController {
         respond taskList
     }
 
-    def show(Task task) {
+    def show(Task task, Double a) {
+        //TODO выдать ошибку если task == null
 
         withFormat {
             html task: task
             json {
-                SmoothingMethodDataWrapper dataWrapper = new SmoothingMethod(task).calc()
+                SmoothingMethodDataWrapper dataWrapper = new SmoothingMethod(task, a).calc()
                 //JSON.use('deep')
                 render dataWrapper as JSON
             }

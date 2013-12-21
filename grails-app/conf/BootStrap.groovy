@@ -14,7 +14,7 @@ class BootStrap {
         if (ret == 'nothing') return
 
         //Задача: Уровень безработицы по месяцам
-        def task1 = new Task(name: 'Уровень безработицы', titleTitle: 'Месяцы', titleValue: 'Уровень безработицы', titleForecast: 'Прогноз на ноябрь').save(failOnError: true)
+        def task1 = new Task(name: 'Уровень безработицы', titleTitle: 'Месяцы', titleValue: 'Уровень безработицы', titleForecast: 'Прогноз на ноябрь', smoothingParameter: 0.2).save(failOnError: true)
         new TaskData(task: task1, title: 'Январь', value: 2.99).save(failOnError: true)
         new TaskData(task: task1, title: 'Февраль', value: 2.66).save(failOnError: true)
         new TaskData(task: task1, title: 'Март', value: 2.63).save(failOnError: true)

@@ -19,20 +19,20 @@ class SmoothingMethod {
     /** Кол-во данных задачи */
     private int taskDataSize
     /** Параметр сглаживания */
-    private double a
+    private Double a
 
     /** Конструктор метода */
-    SmoothingMethod(Task task) {
+    SmoothingMethod(Task task, Double a) {
         this.task = task
         taskDataList = task.data.sort{it.id}
         taskDataSize = taskDataList.size()
-        this.a = 2 / (taskDataSize+1)
-        a = 0.2 //TODO
+        this.a = (a != null) ? a : task.smoothingParameter
     }
 
     /** Расчет метода */
     SmoothingMethodDataWrapper calc() {
         println('>>calc()') //TODO
+
         List<SmoothingMethodData> smDataList = new LinkedList<SmoothingMethodData>()
 
         Double UVar1 = getU0Var1()
