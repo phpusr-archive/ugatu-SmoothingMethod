@@ -2,5 +2,12 @@
 /*.iml
 
 /resources/database/devDb
+
 /target/stacktrace.log
 /target/work/web.xml.tmp
+/target/classes
+/target/work/plugin-classes
+/target/work/plugin-build-classes
+/target/work/scriptCache
+/target/work/tomcat
+/target/work/resources
