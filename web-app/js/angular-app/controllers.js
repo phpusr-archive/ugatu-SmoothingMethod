@@ -18,6 +18,41 @@ controllers.controller('TaskShowController', ['$scope', '$http', '$location', fu
 
 }]);
 
+controllers.controller('TaskCreateController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+
+    var taskData = [];
+    $scope.taskData = taskData;
+
+    /** Изменение кол-ва данных задачи */
+    $scope.changeCountData = function() {
+        var countData = parseInt($scope.countData);
+
+        var times = Math.abs(countData - taskData.length);
+        var push = countData > taskData.length;
+
+        for (var i=0; i < times; i++) {
+            if (push) {
+                taskData.push(new Data(i, i))
+            } else {
+                taskData.pop();
+            }
+        }
+    };
+
+    /** TODO */
+    $scope.save = function(url) {
+        var obj = {obj: {one: 'test', two: 'test2'}};
+
+        $http.post(url, obj).success(function(data) {
+            //console.log('OK', data);
+        });
+    };
+
+    $scope.countData = 5;
+    $scope.changeCountData();
+
+}]);
+
 //------------Example------------
 controllers.controller('PhoneListCtrl', ['$scope', 'Phone',
     function($scope, Phone) {
