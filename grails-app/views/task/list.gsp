@@ -18,6 +18,10 @@
 
         <h1><g:message code="task.title.label" /></h1><br/>
 
+        <g:if test="${flash.message}">
+            <div class="message" role="status">${flash.message}</div>
+        </g:if>
+
         <g:link action="create"><button class="btn btn-success"><g:message code="task.create.label" /></button></g:link>
         <br/><br/>
 

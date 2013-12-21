@@ -39,25 +39,38 @@
         <g:message code="task.smoothingParameter.label" default="Smoothing Parameter"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:field name="smoothingParameter" value="${fieldValue(bean: taskInstance, field: 'smoothingParameter')}"
+    <g:field type="" name="smoothingParameter" value="${fieldValue(bean: taskInstance, field: 'smoothingParameter')}"
              required=""/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: taskInstance, field: 'data', 'error')} ">
-    <label for="data">
-        <g:message code="task.data.label" default="Data"/>
-
+<div class="fieldcontain required">
+    <label for="countData">
+        <g:message code="task.countData.label" default="Count"/>
+        <span class="required-indicator">*</span>
     </label>
+    <g:field type="number" name="countData" required="" ng-model="countData" ng-change="changeCountData()" />
+</div>
 
-    <ul class="one-to-many">
-        <g:each in="${taskInstance?.data ?}" var="d">
-            <li><g:link controller="taskData" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></li>
-        </g:each>
-        <li class="add">
-            <g:link controller="taskData" action="create"
-                    params="['task.id': taskInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'taskData.label', default: 'TaskData')])}</g:link>
-        </li>
-    </ul>
+<div style="margin: 20px 0; width: 500px;" ng-show="countData">
+
+    <h3>Данные задачи</h3>
+    <br/>
+
+    <table>
+        <tr>
+            <th>№</th> %{--TODO--}%
+            <th>Заголовок</th>
+            <th>Значение</th>
+        </tr>
+        <tr ng-repeat="d in taskData ">
+            <td>{{$index+1}}</td>
+            <td><input type="text" ng-model="d.title" /></td>
+            <td><input type="text" ng-model="d.value" /></td>
+        </tr>
+    </table>
 
 </div>
+
+<g:createLink action="save" />
+<button ng-click="save('${g.createLink(action: 'save')}')" onclick="return false">Save</button>
 
