@@ -71,5 +71,7 @@ grails.project.dependency.resolution = {
 
         //phpusr
         runtime ':angularjs-resources:1.2.5'
+        runtime ':twitter-bootstrap:3.0.3'
+
     }
 }
