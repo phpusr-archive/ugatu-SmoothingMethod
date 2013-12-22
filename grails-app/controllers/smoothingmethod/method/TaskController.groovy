@@ -21,7 +21,10 @@ class TaskController {
     }
 
     def show(Task taskInstance, Double a) {
-        //TODO выдать ошибку если taskInstance == null
+        if (!taskInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'task.label'), params.id])
+            redirect action:"list", method:"GET"
+        }
 
         withFormat {
             html taskInstance: taskInstance
