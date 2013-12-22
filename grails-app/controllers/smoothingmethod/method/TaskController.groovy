@@ -3,8 +3,7 @@ package smoothingmethod.method
 import grails.converters.JSON
 import grails.transaction.Transactional
 
-import static org.springframework.http.HttpStatus.CREATED
-import static org.springframework.http.HttpStatus.NOT_FOUND
+import static org.springframework.http.HttpStatus.*
 
 class TaskController {
 
@@ -27,7 +26,14 @@ class TaskController {
         withFormat {
             html task: task
             json {
-                SmoothingMethodDataWrapper dataWrapper = new SmoothingMethod(task, a).calc()
+                def dataWrapper
+                try {
+                    dataWrapper = new SmoothingMethod(task, a).calc()
+                } catch(ArithmeticException e) {
+                    def AE = [status: [name: 'ArithmeticException', message: message(code: 'exception.arithmetic.error.message')]]
+                    render (AE as JSON)
+                    return
+                }
                 render dataWrapper as JSON
             }
         }
@@ -39,39 +45,30 @@ class TaskController {
 
     @Transactional
     def save() {
-        Task taskInstance
         def jsonObject = request.JSON;
-        println 'jsonObject: ' + jsonObject
-        return //TODO
+        Task taskInstance = new Task(jsonObject.task as Map)
 
-        if (taskInstance == null) {
-            notFound()
+        if (!taskInstance.save(flush:true)) {
+            hasErrors()
             return
         }
 
-        if (taskInstance.hasErrors()) {
-            respond taskInstance.errors, view:'create'
-            return
-        }
-
-        taskInstance.save flush:true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'taskInstance.label', default: 'Task'), taskInstance.id])
-                redirect taskInstance
+        jsonObject.taskData.each { Map td ->
+            TaskData taskDataInstance = new TaskData(title: td.title, value: td.value, task: taskInstance).save(flush:true)
+            if (!taskDataInstance) {
+                hasErrors()
+                return
             }
-            '*' { respond taskInstance, [status: CREATED] }
         }
+
+        render ([status: OK] as JSON)
     }
 
     protected void notFound() {
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'taskInstance.label', default: 'Task'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*'{ render status: NOT_FOUND }
-        }
+        render ([status: NOT_FOUND] as JSON)
+    }
+
+    protected void hasErrors() {
+        render ([status: INTERNAL_SERVER_ERROR] as JSON)
     }
 }

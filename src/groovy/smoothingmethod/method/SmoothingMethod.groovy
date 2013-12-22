@@ -31,7 +31,7 @@ class SmoothingMethod {
 
     /** Расчет метода */
     SmoothingMethodDataWrapper calc() {
-        println('>>calc()') //TODO
+        println('>>calc()')
 
         List<SmoothingMethodData> smDataList = new LinkedList<SmoothingMethodData>()
 
@@ -88,7 +88,12 @@ class SmoothingMethod {
 
     /** Расчет средней относительной ошибки */
     private static Double calcAvgError(Double yFact, Double yCalc) {
-        return Math.abs(yFact - yCalc) / yFact * 100
+        Double val = Math.abs(yFact - yCalc) / yFact * 100
+        if (Double.isInfinite(val) || Double.isNaN(val)) {
+            throw new ArithmeticException("illegal double value: $val");
+        } else {
+            return val
+        }
     }
 
 }
