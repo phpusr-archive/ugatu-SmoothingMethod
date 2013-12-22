@@ -13,6 +13,9 @@ class Task {
         smoothingParameter()
     }
 
+    //Каскадное удаление данных
+    static mapping = { data cascade: 'all-delete-orphan' }
+
     /** Данные задачи */
     static hasMany = [data: TaskData]
 
