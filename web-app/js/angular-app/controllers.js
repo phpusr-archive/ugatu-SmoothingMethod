@@ -11,7 +11,7 @@ controllers.controller('TaskShowController', ['$scope', '$http', '$location', fu
     $scope.updateView = function(a) {
         $http.get($location.absUrl() + '.json?a=' + a).success(function(data) {
             console.log('success data:', data);
-            if (data.status && data.status.name == 'ArithmeticException') {
+            if (data.status) {
                 $scope.hasErrors = true;
                 $scope.errorMessage  = data.message;
             } else {
