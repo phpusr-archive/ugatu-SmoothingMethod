@@ -69,7 +69,3 @@
     </table>
 
 </div>
-
-<g:createLink action="save" />
-<button ng-click="save('${g.createLink(action: 'save')}', '${g.createLink(action: 'list')}')" onclick="return false">Save</button>
-

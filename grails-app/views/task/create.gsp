@@ -13,14 +13,14 @@
 <div ng-app="app" id="create-task" class="content scaffold-create" role="main" ng-controller="TaskCreateController">
     <h1>${entityName}</h1>
 
-    <g:form url="[resource: taskInstance, action: 'save']">
-        <fieldset class="form">
-            <g:render template="form"/>
-        </fieldset>
-        <fieldset class="buttons">
-            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}"/>
-        </fieldset>
-    </g:form>
+    <fieldset class="form">
+        <g:render template="form"/>
+    </fieldset>
+    <fieldset class="buttons">
+        <input type="button" class="save"
+               ng-click="save('${g.createLink(action: 'save')}', '${g.createLink(action: 'list')}')"
+               value="${message(code: 'default.button.create.label')}" />
+    </fieldset>
 </div>
 
 </body>
