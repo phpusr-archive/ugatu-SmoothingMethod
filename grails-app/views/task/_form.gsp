@@ -1,6 +1,6 @@
 <%@ page import="smoothingmethod.method.Task" %>
 
-<div ng-show="hasErrors" class="alert alert-danger">Обнаружены ошибки при заполнении</div> %{--TODO--}%
+<div ng-show="hasErrors" class="alert alert-danger">{{errorMessage}}</div>
 
 <div class="fieldcontain ${hasErrors(bean: taskInstance, field: 'name', 'error')} required">
     <label for="name">

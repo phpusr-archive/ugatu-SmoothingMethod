@@ -33,7 +33,7 @@ class TaskController {
                 try {
                     dataWrapper = new SmoothingMethod(taskInstance, a).calc()
                 } catch(ArithmeticException e) {
-                    def AE = [status: [name: 'ArithmeticException', message: message(code: 'exception.arithmetic.error.message')]]
+                    def AE = [status: [name: 'ArithmeticException'], message: message(code: 'exception.arithmetic.error.message')]
                     render (AE as JSON)
                     return
                 }
@@ -125,6 +125,7 @@ class TaskController {
     }
 
     protected void hasErrors() {
-        render ([status: INTERNAL_SERVER_ERROR] as JSON)
+        def obj = [status: INTERNAL_SERVER_ERROR, message: g.message(code: 'default.error.message')]
+        render obj as JSON
     }
 }

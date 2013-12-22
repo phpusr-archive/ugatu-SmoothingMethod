@@ -12,7 +12,7 @@ controllers.controller('TaskShowController', ['$scope', '$http', '$location', fu
             console.log('success data:', data);
             if (data.status && data.status.name == 'ArithmeticException') {
                 $scope.hasErrors = true;
-                $scope.errorMessage  = data.status.message;
+                $scope.errorMessage  = data.message;
             } else {
                 $scope.data = data;
             }
@@ -58,6 +58,7 @@ controllers.controller('TaskCreateController', ['$scope', '$http', function($sco
                 document.location = actionShow + '/' + data.id;
             } else {
                 $scope.hasErrors = true;
+                $scope.errorMessage = data.message
             }
         });
     };
@@ -94,6 +95,7 @@ controllers.controller('TaskEditController', ['$scope', '$http', '$location', fu
                 document.location = actionShow + '/' + data.id;
             } else {
                 $scope.hasErrors = true;
+                $scope.errorMessage = data.message
             }
         });
     };
