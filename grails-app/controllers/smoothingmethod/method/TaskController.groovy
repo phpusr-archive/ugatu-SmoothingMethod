@@ -54,7 +54,7 @@ class TaskController {
             return
         }
 
-        jsonObject.taskData.each { Map td -> //TODO попробовать избавиться от этого
+        jsonObject.taskData.each { Map td ->
             TaskData taskDataInstance = new TaskData(title: td.title, value: td.value, task: taskInstance).save(flush:true)
             if (!taskDataInstance) {
                 hasErrors()
@@ -75,27 +75,21 @@ class TaskController {
         def jsonObject = request.JSON;
         Task taskInstance = Task.get(jsonObject.task.id as Long)
 
-        //Создание или Обновление TaskData
-        List<TaskData> taskDataList = [] //TODO удалить все TaskData, а потом заново добавить
+        //Удаление старых и добавление новых TaskData
+        taskInstance.data.removeAll(taskInstance.data)
+        List<TaskData> taskDataList = []
         jsonObject.taskData.each { Map td ->
-            TaskData taskDataInstance
-            if (td.id) {
-                taskDataInstance = TaskData.get(td.id as Long).save(flush:true)
-            } else {
-                taskDataInstance = new TaskData(title: td.title, value: td.value, task: taskInstance).save(flush:true)
-            }
-
+            TaskData taskDataInstance = new TaskData(title: td.title, value: td.value, task: taskInstance).save(flush:true)
             if (!taskDataInstance) {
                 hasErrors()
                 return
             }
-
             taskDataList << taskDataInstance
         }
 
         //Обновление Task
+        jsonObject.task.data = taskDataList
         taskInstance.properties = jsonObject.task
-        taskInstance.data = taskDataList
         if (!taskInstance.save(flush:true)) {
             hasErrors()
             return
