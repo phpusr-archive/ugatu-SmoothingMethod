@@ -22,9 +22,10 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 		<div id="grailsLogo" role="banner"><g:link uri="/"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></g:link></div>
         <a href="#create-example" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+
         <div class="nav" role="navigation">
             <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+                <li><g:link class="home" controller="task"><g:message code="default.home.label"/></g:link></li>
                 <li><g:link class="list" controller="task" action="index"><g:message code="task.title.label" /></g:link></li>
             </ul>
         </div>

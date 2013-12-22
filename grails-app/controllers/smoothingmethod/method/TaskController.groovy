@@ -10,7 +10,7 @@ class TaskController {
     static allowedMethods = [list: 'GET', save: 'POST', update: 'PUT']
 
     def index() {
-        redirect(action: 'list', params: params)
+        redirect action:'list'
     }
 
     def list() {
