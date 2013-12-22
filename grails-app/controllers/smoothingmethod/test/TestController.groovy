@@ -12,6 +12,11 @@ import java.text.SimpleDateFormat
  */
 class TestController {
 
+    def index() {
+        //TODO Вывод всех action
+        render 'TODO Вывод всех action'
+    }
+
     /** Проверка получения массива параметров */
     def checkParams() {
         println params.val
