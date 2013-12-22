@@ -75,6 +75,7 @@ class TaskController {
 
     def edit(Task taskInstance) {
         JSON.use('deep')
+        taskInstance?.data?.sort(true){ it.id }
         respond taskInstance
     }
 
