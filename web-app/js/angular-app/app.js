@@ -7,7 +7,7 @@ var app = angular.module('app', ['ngRoute', 'controllers']);
 /**
  * TODO Структура данных
  */
-function Data(title, val) {
+function Data(title, value) {
     this.title = title;
-    this.val = val;
+    this.value = value;
 }

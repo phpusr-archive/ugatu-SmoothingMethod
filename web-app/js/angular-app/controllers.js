@@ -9,8 +9,13 @@ controllers.controller('TaskShowController', ['$scope', '$http', '$location', fu
     /** Обновление содержимого страницы */
     $scope.updateView = function(a) {
         $http.get($location.absUrl() + '.json?a=' + a).success(function(data) {
-            $scope.data = data;
-            console.log(data);
+            console.log('success data:', data);
+            if (data.status && data.status.name == 'ArithmeticException') {
+                $scope.hasErrors = true;
+                $scope.errorMessage  = data.status.message;
+            } else {
+                $scope.data = data;
+            }
         });
     };
 
@@ -20,8 +25,9 @@ controllers.controller('TaskShowController', ['$scope', '$http', '$location', fu
 
 controllers.controller('TaskCreateController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
-    var taskData = [];
-    $scope.taskData = taskData;
+    $scope.task = {};
+    $scope.taskData = [];
+    var taskData = $scope.taskData;
 
     /** Изменение кол-ва данных задачи */
     $scope.changeCountData = function() {
@@ -39,15 +45,20 @@ controllers.controller('TaskCreateController', ['$scope', '$http', '$location', 
         }
     };
 
-    /** TODO */
-    $scope.save = function(url) {
-        var obj = {obj: {one: 'test', two: 'test2'}};
-
-        $http.post(url, obj).success(function(data) {
-            //console.log('OK', data);
+    /** Сохранение Задачи и ее данных */
+    $scope.save = function(actionSave, actionList) {
+        var dataIn = {task: $scope.task, taskData: taskData};
+        $http.post(actionSave, dataIn).success(function(data) {
+            console.log('OK', data);
+            if (data.status.name == 'OK') {
+                document.location = actionList;
+            } else {
+                $scope.hasErrors = true;
+            }
         });
     };
 
+    //TODO
     $scope.countData = 5;
     $scope.changeCountData();
 

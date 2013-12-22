@@ -21,6 +21,8 @@
 
     <h1>${title}</h1>
 
+    <div ng-show="hasErrors" class="alert alert-danger">{{errorMessage}}</div>
+
     <div style="margin: 20px 0">
         <label>a = <input type="text" ng-model="data.a" ng-change="updateView(data.a)" /></label>
     </div>
