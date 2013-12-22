@@ -80,7 +80,7 @@ class TaskController {
     }
 
     @Transactional
-    def update() {
+    def update() { //TODO заменять точку в Doulbe на запятую на сервере или клиенте (или конвертировать) (в save тоже и еще параметр a)
         def jsonObject = request.JSON;
         Task taskInstance = Task.get(jsonObject.task.id as Long)
 
