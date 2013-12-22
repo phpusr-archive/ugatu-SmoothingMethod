@@ -3,6 +3,9 @@ package smoothingmethod.test
 import grails.converters.JSON
 import grails.converters.XML
 import smoothingmethod.method.Task
+import smoothingmethod.method.TaskData
+
+import java.text.SimpleDateFormat
 
 /**
  * Контроллер для тестирования всяких штук
@@ -45,17 +48,42 @@ class TestController {
         }
     }
 
-    /** Вывод курса валют */
+    /**
+     * Вывод курса валют
+     * http://www.thecoderscorner.com/team-blog/groovy-and-grails/15-reading-and-writing-xml-in-groovy#.UrcBg_RdU2w
+     * http://toster.ru/q/7088
+     */
     def currencyRates() {
         def slurper = new XmlSlurper()
         def htmlParser = slurper.parse('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml')
         def currencyRates = htmlParser.Cube.Cube
 
+        importIntoTask(currencyRates)
         renderHtml(currencyRates)
     }
 
+    /** Импорт курса валют в качестве Задачи */
+    protected static void importIntoTask(def currencyRates) {
+        def task = new Task(name: 'Курсы валют', titleTitle: 'Дни', titleValue: 'Курсы валют', titleForecast: 'Прогноз на 20-е', smoothingParameter: 0.2).save(flush: true)
+        def df = new SimpleDateFormat('yyyy-MM-dd')
+        def dfRus = new SimpleDateFormat('dd.MM.yyyy')
+
+        currencyRates.eachWithIndex { crDate, i ->
+            if (i < 10) {
+                Date date = df.parse(crDate['@time'] as String)
+                String dateString = dfRus.format(date)
+                def rate = crDate.Cube.find { cr -> cr['@currency'] == 'RUB' }['@rate']
+                Double rateDouble = Double.parseDouble(rate as String)
+
+                new TaskData(title: dateString, value: rateDouble, task: task).save(flush: true)
+
+                println ">> $dateString : $rateDouble"
+            }
+        }
+    }
+
     /** Вывод курса валют (html) */
-    protected def renderHtml(def currencyRates) {
+    protected void renderHtml(def currencyRates) {
         render {
             html {
                 table(border: '1px') {
