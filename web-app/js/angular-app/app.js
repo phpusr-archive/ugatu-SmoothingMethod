@@ -5,7 +5,7 @@
 var app = angular.module('app', ['ngRoute', 'controllers']);
 
 /**
- * TODO Структура данных
+ * Класс для TaskData
  */
 function Data(title, value) {
     this.title = title;

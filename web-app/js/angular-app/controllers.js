@@ -4,6 +4,7 @@
 
 var controllers = angular.module('controllers', []);
 
+/** TaskShowController */
 controllers.controller('TaskShowController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
     /** Обновление содержимого страницы */
@@ -20,7 +21,6 @@ controllers.controller('TaskShowController', ['$scope', '$http', '$location', fu
     };
 
     $scope.updateView();
-
 }]);
 
 /** Изменение кол-ва данных задачи */
@@ -39,6 +39,7 @@ function changeCountData(taskData, countData) {
     }
 }
 
+/** TaskCreateController */
 controllers.controller('TaskCreateController', ['$scope', '$http', function($scope, $http) {
 
     $scope.task = {};
@@ -63,12 +64,12 @@ controllers.controller('TaskCreateController', ['$scope', '$http', function($sco
         });
     };
 
-    //TODO
+    //Начальная инициализация
     $scope.countData = 5;
     $scope.changeCountData();
-
 }]);
 
+/** TaskEditController */
 controllers.controller('TaskEditController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
     /** Обновление содержимого страницы */
@@ -101,7 +102,6 @@ controllers.controller('TaskEditController', ['$scope', '$http', '$location', fu
     };
 
     $scope.updateView();
-
 }]);
 
 //------------Example------------
