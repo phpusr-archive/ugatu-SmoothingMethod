@@ -50,7 +50,7 @@
     <g:field type="number" name="countData" required="" ng-model="countData" ng-change="changeCountData()" />
 </div>
 
-<div style="margin: 20px 0; width: 500px;" ng-show="countData">
+<div style="margin: 20px 0; width: 500px;" ng-show="countData > 0">
 
     <h3>Данные задачи</h3>
     <br/>
