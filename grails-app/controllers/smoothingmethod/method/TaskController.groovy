@@ -29,12 +29,17 @@ class TaskController {
         withFormat {
             html taskInstance: taskInstance
             json {
+                if (taskInstance.data.size() == 0) {
+                    def TDE = [status: [name: 'TaskDataSizeException'], message: message(code: 'taskData.size.error.message')]
+                    render TDE as JSON
+                    return
+                }
                 def dataWrapper
                 try {
                     dataWrapper = new SmoothingMethod(taskInstance, a).calc()
                 } catch(ArithmeticException e) {
                     def AE = [status: [name: 'ArithmeticException'], message: message(code: 'exception.arithmetic.error.message')]
-                    render (AE as JSON)
+                    render AE as JSON
                     return
                 }
                 JSON.use(null)
