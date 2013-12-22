@@ -31,7 +31,7 @@ class SmoothingMethod {
 
     /** Расчет метода */
     SmoothingMethodDataWrapper calc() {
-        println('>>calc()')
+        println(">>calc(): ${task.name}")
 
         List<SmoothingMethodData> smDataList = new LinkedList<SmoothingMethodData>()
 
