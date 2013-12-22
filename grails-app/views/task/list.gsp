@@ -25,12 +25,19 @@
         <g:link action="create"><button class="btn btn-success"><g:message code="task.create.label" /></button></g:link>
         <br/><br/>
 
-        <table>
+        <table style="width: 600px;">
+            <tr>
+                <g:sortableColumn property="name" title="${message(code: 'task.name.label')}" />
+                <th style="width: 160px;"><g:message code="task.taskData.count.label" /></th>
+                <th></th>
+                <th></th>
+            </tr>
             <g:each in="${taskInstanceList}" var="task">
                 <tr>
                     <td>
                         <g:link action="show" id="${task.id}"><g:fieldValue field="name" bean="${task}"/></g:link>
                     </td>
+                    <td class="text-center">${task.data.size()}</td>
                     <td>
                         <g:link action="edit" id="${task.id}" title="${message(code: 'default.button.edit.label')}">
                             <span class="glyphicon glyphicon-edit"></span>

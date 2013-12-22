@@ -15,7 +15,7 @@ class TaskController {
 
     def list() {
 
-        def taskList = Task.list()
+        def taskList = Task.list(params)
 
         respond taskList
     }
