@@ -34,6 +34,7 @@ class TaskController {
                     render (AE as JSON)
                     return
                 }
+                JSON.use(null)
                 render dataWrapper as JSON
             }
         }
@@ -62,6 +63,11 @@ class TaskController {
         }
 
         render ([status: OK] as JSON)
+    }
+
+    def edit(Task taskInstance) {
+        JSON.use('deep')
+        respond taskInstance
     }
 
     protected void notFound() {

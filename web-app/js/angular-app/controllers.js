@@ -23,31 +23,35 @@ controllers.controller('TaskShowController', ['$scope', '$http', '$location', fu
 
 }]);
 
-controllers.controller('TaskCreateController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+/** Изменение кол-ва данных задачи */
+function changeCountData(taskData, countData) {
+    countData = parseInt(countData);
+
+    var times = Math.abs(countData - taskData.length);
+    var push = countData > taskData.length;
+
+    for (var i=0; i < times; i++) {
+        if (push) {
+            taskData.push(new Data('', ''))
+        } else {
+            taskData.pop();
+        }
+    }
+}
+
+controllers.controller('TaskCreateController', ['$scope', '$http', function($scope, $http) {
 
     $scope.task = {};
     $scope.taskData = [];
-    var taskData = $scope.taskData;
 
     /** Изменение кол-ва данных задачи */
     $scope.changeCountData = function() {
-        var countData = parseInt($scope.countData);
-
-        var times = Math.abs(countData - taskData.length);
-        var push = countData > taskData.length;
-
-        for (var i=0; i < times; i++) {
-            if (push) {
-                taskData.push(new Data(i, i))
-            } else {
-                taskData.pop();
-            }
-        }
+        changeCountData($scope.taskData, $scope.countData)
     };
 
     /** Сохранение Задачи и ее данных */
     $scope.save = function(actionSave, actionList) {
-        var dataIn = {task: $scope.task, taskData: taskData};
+        var dataIn = {task: $scope.task, taskData: $scope.taskData};
         $http.post(actionSave, dataIn).success(function(data) {
             console.log('OK', data);
             if (data.status.name == 'OK') {
@@ -61,6 +65,27 @@ controllers.controller('TaskCreateController', ['$scope', '$http', '$location', 
     //TODO
     $scope.countData = 5;
     $scope.changeCountData();
+
+}]);
+
+controllers.controller('TaskEditController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+
+    /** Обновление содержимого страницы */
+    $scope.updateView = function(a) {
+        $http.get($location.absUrl() + '.json').success(function(task) {
+            console.log('success data:', task);
+            $scope.task = task;
+            $scope.countData = task.data.length;
+            $scope.taskData = task.data;
+        });
+    };
+
+    /** Изменение кол-ва данных задачи */
+    $scope.changeCountData = function() {
+        changeCountData($scope.taskData, $scope.countData)
+    };
+
+    $scope.updateView();
 
 }]);
 
