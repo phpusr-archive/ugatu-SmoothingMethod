@@ -45,4 +45,39 @@ class TestController {
         }
     }
 
+    /** Вывод курса валют */
+    def currencyRates() {
+        def slurper = new XmlSlurper()
+        def htmlParser = slurper.parse('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml')
+        def currencyRates = htmlParser.Cube.Cube
+
+        renderHtml(currencyRates)
+    }
+
+    /** Вывод курса валют (html) */
+    protected def renderHtml(def currencyRates) {
+        render {
+            html {
+                table(border: '1px') {
+                    //Вывод заголовков
+                    tr {
+                        def crDate = currencyRates.getAt(0)
+                        th 'Date'
+                        crDate.Cube.each { cr->
+                            th cr['@currency']
+                        }
+                    }
+                    //Вывод данных
+                    currencyRates.each { crDate ->
+                        tr { td crDate['@time']
+                            crDate.Cube.each { cr ->
+                                td "${cr['@rate']}"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
