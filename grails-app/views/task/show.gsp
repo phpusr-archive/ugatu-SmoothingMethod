@@ -31,11 +31,11 @@
         <div>
             <table class="table table-striped table-bordered table-hover" style="width: 900px;">
                 <tr>
-                    <th rowspan="2">№</th>
+                    <th rowspan="2"><g:message code="default.number.label" /></th>
                     <th rowspan="2">{{data.task.titleTitle}}</th>
                     <th rowspan="2">{{data.task.titleValue}}, Yt, %</th>
-                    <th colspan="2">Экспоненциально взвешенная средняя, Ut</th>
-                    <th colspan="2">Расчет средней относительной ошибки,<br/> |Yф-Yр| / Yф * 100, %</th>
+                    <th colspan="2"><g:message code="task.expAvg.label" /></th>
+                    <th colspan="2"><g:message code="task.avgError.label" /></th>
                 </tr>
                 <tr>
                     <th><g:message code="default.way.one.label" /></th>
@@ -92,7 +92,8 @@
 <g:form url="[resource:taskInstance, action:'delete']" method="DELETE">
     <fieldset class="buttons">
         <g:link class="edit" action="edit" resource="${taskInstance}"><g:message code="default.button.edit.label" /></g:link>
-        <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message')}');" />
+        <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label')}"
+                        onclick="return confirm('${message(code: 'default.button.delete.confirm.message')}');" />
     </fieldset>
 </g:form>
 
