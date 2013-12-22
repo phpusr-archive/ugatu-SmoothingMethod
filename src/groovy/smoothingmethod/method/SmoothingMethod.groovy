@@ -88,7 +88,7 @@ class SmoothingMethod {
 
     /** Расчет средней относительной ошибки */
     private static Double calcAvgError(Double yFact, Double yCalc) {
-        Double val = Math.abs(yFact - yCalc) / yFact * 100
+        Double val = Math.abs(yFact - yCalc) / Math.abs(yFact) * 100
         if (Double.isInfinite(val) || Double.isNaN(val)) {
             throw new ArithmeticException("illegal double value: $val");
         } else {
