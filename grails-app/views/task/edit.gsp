@@ -14,15 +14,14 @@
 <div ng-app="app" id="edit-task" class="content scaffold-edit" role="main" ng-controller="TaskEditController">
     <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
 
-    <g:form url="[resource: taskInstance, action: 'update']" method="PUT">
-        <g:hiddenField name="version" value="${taskInstance?.version}"/>
-        <fieldset class="form">
-            <g:render template="form"/>
-        </fieldset>
-        <fieldset class="buttons">
-            <g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}"/>
-        </fieldset>
-    </g:form>
+    <fieldset class="form">
+        <g:render template="form"/>
+    </fieldset>
+    <fieldset class="buttons">
+        <input type="button" class="save"
+               ng-click="update('${createLink(action: 'update', id: taskInstance.id)}', '${createLink(action: 'show', id: taskInstance.id)}')"
+               value="${message(code: 'default.button.update.label')}" />
+    </fieldset>
 </div>
 </body>
 </html>
