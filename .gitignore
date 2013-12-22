@@ -2,6 +2,7 @@
 /*.iml
 
 /resources/database/devDb
+/resources/database/prodDb/*.lock.db
 
 /target/stacktrace.log
 /target/work/web.xml.tmp
