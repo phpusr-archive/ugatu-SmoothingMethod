@@ -26,10 +26,10 @@ class BootStrap {
         new TaskData(task: task1, title: 'Сентябрь', value: 1.56).save(failOnError: true)
         new TaskData(task: task1, title: 'Октябрь', value: 1.42).save(failOnError: true)
 
-        def task2 = new Task(name: 'Прогноз погоды', titleTitle: 'Дни', titleValue: 'Прогноз погоды', titleForecast: 'Прогноз на 20-е', smoothingParameter: 0.2).save(failOnError: true)
-        new TaskData(task: task2, title: '1', value: 1).save(failOnError: true)
-        new TaskData(task: task2, title: '2', value: 0).save(failOnError: true)
-        new TaskData(task: task2, title: '3', value: 2).save(failOnError: true)
+        def task2 = new Task(name: 'Прогноз погоды', titleTitle: 'Дни', titleValue: 'Прогноз погоды', titleForecast: 'Прогноз на 23-е', smoothingParameter: 0.2).save(failOnError: true)
+        new TaskData(task: task2, title: '20', value: -10).save(failOnError: true)
+        new TaskData(task: task2, title: '21', value: -26).save(failOnError: true)
+        new TaskData(task: task2, title: '22', value: -8).save(failOnError: true)
 
     }
     def destroy = {
