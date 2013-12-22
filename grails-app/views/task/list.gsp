@@ -28,9 +28,19 @@
         <table>
             <g:each in="${taskInstanceList}" var="task">
                 <tr>
-                    <td><g:link action="show" id="${task.id}"><g:fieldValue field="name" bean="${task}"/></g:link></td>
-                    <td><g:link action="edit" id="${task.id}"><span class="glyphicon glyphicon-edit"></span></g:link></td>
-                    <td><g:link action="delete" id="${task.id}"><span class="glyphicon glyphicon-trash"></span></g:link></td>
+                    <td>
+                        <g:link action="show" id="${task.id}"><g:fieldValue field="name" bean="${task}"/></g:link>
+                    </td>
+                    <td>
+                        <g:link action="edit" id="${task.id}" title="${message(code: 'default.button.edit.label')}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </g:link>
+                    </td>
+                    <td>
+                        <g:link action="delete" id="${task.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message')}');" title="${message(code: 'default.button.delete.label')}">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </g:link>
+                    </td>
                 </tr>
             </g:each>
         </table>

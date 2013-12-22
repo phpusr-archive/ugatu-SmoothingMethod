@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:set var="title" value="Задача: ${task.name}" />
+    <g:set var="title" value="Задача: ${taskInstance.name}" />
     <title>${title}</title>
     <r:require module="angularApp" />
 </head>
@@ -85,6 +85,13 @@
     </div>
 
 </div>
+
+<g:form url="[resource:taskInstance, action:'delete']" method="DELETE">
+    <fieldset class="buttons">
+        <g:link class="edit" action="edit" resource="${taskInstance}"><g:message code="default.button.edit.label" /></g:link>
+        <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message')}');" />
+    </fieldset>
+</g:form>
 
 </body>
 </html>

@@ -3,8 +3,8 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'task.label', default: 'Task')}"/>
-    <title><g:message code="default.edit.label" args="[entityName]"/></title>
+    <g:set var="entityName" value="${message(code: 'task.edit.label')}"/>
+    <title>${entityName}</title>
     <r:require module="angularApp" />
 </head>
 
@@ -12,7 +12,7 @@
 <a href="#edit-task" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 
 <div ng-app="app" id="edit-task" class="content scaffold-edit" role="main" ng-controller="TaskEditController">
-    <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
+    <h1>${entityName}</h1>
 
     <fieldset class="form">
         <g:render template="form"/>
