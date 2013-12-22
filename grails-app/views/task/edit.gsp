@@ -19,7 +19,7 @@
     </fieldset>
     <fieldset class="buttons">
         <input type="button" class="save"
-               ng-click="update('${createLink(action: 'update', id: taskInstance.id)}', '${createLink(action: 'show', id: taskInstance.id)}')"
+               ng-click="update('${createLink(action: 'update')}', '${createLink(action: 'show')}')"
                value="${message(code: 'default.button.update.label')}" />
     </fieldset>
 </div>

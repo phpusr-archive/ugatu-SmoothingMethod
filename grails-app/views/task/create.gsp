@@ -18,7 +18,7 @@
     </fieldset>
     <fieldset class="buttons">
         <input type="button" class="save"
-               ng-click="save('${g.createLink(action: 'save')}', '${g.createLink(action: 'list')}')"
+               ng-click="save('${g.createLink(action: 'save')}', '${g.createLink(action: 'show')}')"
                value="${message(code: 'default.button.create.label')}" />
     </fieldset>
 </div>

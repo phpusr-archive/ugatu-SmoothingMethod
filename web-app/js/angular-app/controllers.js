@@ -50,12 +50,12 @@ controllers.controller('TaskCreateController', ['$scope', '$http', function($sco
     };
 
     /** Сохранение Задачи и ее данных */
-    $scope.save = function(actionSave, actionList) { //TODO actionShow
+    $scope.save = function(actionSave, actionShow) {
         var dataIn = {task: $scope.task, taskData: $scope.taskData};
         $http.post(actionSave, dataIn).success(function(data) {
             console.log('OK', data);
             if (data.status.name == 'OK') {
-                document.location = actionList;
+                document.location = actionShow + '/' + data.id;
             } else {
                 $scope.hasErrors = true;
             }
@@ -89,9 +89,9 @@ controllers.controller('TaskEditController', ['$scope', '$http', '$location', fu
     $scope.update = function(actionUpdate, actionShow) {
         var dataIn = {task: $scope.task, taskData: $scope.taskData};
         $http.put(actionUpdate, dataIn).success(function(data) {
-            console.log('OK', data);
+            console.log('success data:', data);
             if (data.status.name == 'OK') {
-                document.location = actionShow;
+                document.location = actionShow + '/' + data.id;
             } else {
                 $scope.hasErrors = true;
             }

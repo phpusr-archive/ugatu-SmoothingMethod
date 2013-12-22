@@ -62,7 +62,7 @@ class TaskController {
             }
         }
 
-        render ([status: OK] as JSON)
+        render ([status: OK, id: taskInstance.id] as JSON)
     }
 
     def edit(Task taskInstance) {
@@ -76,7 +76,7 @@ class TaskController {
         Task taskInstance = Task.get(jsonObject.task.id as Long)
 
         //Создание или Обновление TaskData
-        List<TaskData> taskDataList = []
+        List<TaskData> taskDataList = [] //TODO удалить все TaskData, а потом заново добавить
         jsonObject.taskData.each { Map td ->
             TaskData taskDataInstance
             if (td.id) {
@@ -101,7 +101,7 @@ class TaskController {
             return
         }
 
-        render ([status: OK] as JSON)
+        render ([status: OK, id: taskInstance.id] as JSON)
     }
 
     protected void notFound() {
