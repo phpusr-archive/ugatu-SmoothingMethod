@@ -23,5 +23,6 @@
                value="${message(code: 'default.button.update.label')}" />
     </fieldset>
 </div>
+
 </body>
 </html>
