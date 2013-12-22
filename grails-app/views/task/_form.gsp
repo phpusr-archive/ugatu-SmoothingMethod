@@ -55,16 +55,16 @@
     <h3>Данные задачи</h3>
     <br/>
 
-    <table>
+    <table class="table table-striped table-bordered table-hover">
         <tr>
-            <th>№</th> %{--TODO--}%
-            <th>Заголовок</th>
-            <th>Значение</th>
+            <th class="text-center"><g:message code="default.number.label" /></th>
+            <th><g:message code="taskData.title.label" /></th>
+            <th><g:message code="taskData.value.label" /></th>
         </tr>
         <tr ng-repeat="d in taskData ">
-            <td>{{$index+1}}</td>
+            <td class="text-center">{{$index+1}}</td>
             <td><input type="text" ng-model="d.title" /></td>
-            <td><input type="text" ng-model="d.value" /></td>
+            <td><input type="text" ng-model="d.value" style="width: 100px;" /></td>
         </tr>
     </table>
 
