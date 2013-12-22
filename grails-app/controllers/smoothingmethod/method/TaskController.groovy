@@ -7,7 +7,7 @@ import static org.springframework.http.HttpStatus.*
 
 class TaskController {
 
-    static allowedMethods = [list: 'GET', save: 'POST']
+    static allowedMethods = [list: 'GET', save: 'POST', update: 'PUT']
 
     def index() {
         redirect(action: 'list', params: params)
@@ -54,7 +54,7 @@ class TaskController {
             return
         }
 
-        jsonObject.taskData.each { Map td ->
+        jsonObject.taskData.each { Map td -> //TODO попробовать избавиться от этого
             TaskData taskDataInstance = new TaskData(title: td.title, value: td.value, task: taskInstance).save(flush:true)
             if (!taskDataInstance) {
                 hasErrors()
@@ -68,6 +68,40 @@ class TaskController {
     def edit(Task taskInstance) {
         JSON.use('deep')
         respond taskInstance
+    }
+
+    @Transactional
+    def update() {
+        def jsonObject = request.JSON;
+        Task taskInstance = Task.get(jsonObject.task.id as Long)
+
+        //Создание или Обновление TaskData
+        List<TaskData> taskDataList = []
+        jsonObject.taskData.each { Map td ->
+            TaskData taskDataInstance
+            if (td.id) {
+                taskDataInstance = TaskData.get(td.id as Long).save(flush:true)
+            } else {
+                taskDataInstance = new TaskData(title: td.title, value: td.value, task: taskInstance).save(flush:true)
+            }
+
+            if (!taskDataInstance) {
+                hasErrors()
+                return
+            }
+
+            taskDataList << taskDataInstance
+        }
+
+        //Обновление Task
+        taskInstance.properties = jsonObject.task
+        taskInstance.data = taskDataList
+        if (!taskInstance.save(flush:true)) {
+            hasErrors()
+            return
+        }
+
+        render ([status: OK] as JSON)
     }
 
     protected void notFound() {

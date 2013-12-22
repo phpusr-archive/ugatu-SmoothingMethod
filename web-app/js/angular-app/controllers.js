@@ -50,7 +50,7 @@ controllers.controller('TaskCreateController', ['$scope', '$http', function($sco
     };
 
     /** Сохранение Задачи и ее данных */
-    $scope.save = function(actionSave, actionList) {
+    $scope.save = function(actionSave, actionList) { //TODO actionShow
         var dataIn = {task: $scope.task, taskData: $scope.taskData};
         $http.post(actionSave, dataIn).success(function(data) {
             console.log('OK', data);
@@ -83,6 +83,19 @@ controllers.controller('TaskEditController', ['$scope', '$http', '$location', fu
     /** Изменение кол-ва данных задачи */
     $scope.changeCountData = function() {
         changeCountData($scope.taskData, $scope.countData)
+    };
+
+    /** Изменение Задачи и ее данных */
+    $scope.update = function(actionUpdate, actionShow) {
+        var dataIn = {task: $scope.task, taskData: $scope.taskData};
+        $http.put(actionUpdate, dataIn).success(function(data) {
+            console.log('OK', data);
+            if (data.status.name == 'OK') {
+                document.location = actionShow;
+            } else {
+                $scope.hasErrors = true;
+            }
+        });
     };
 
     $scope.updateView();
