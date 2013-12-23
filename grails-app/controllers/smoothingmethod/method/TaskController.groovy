@@ -20,7 +20,7 @@ class TaskController {
         respond taskList
     }
 
-    def show(Task taskInstance, Double a) {
+    def show(Task taskInstance, Double a) { //TODO a парсится нормально с точкой, а объект из params, кажется нормально создается с запятой: new News(params)
         if (!taskInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'task.label'), params.id])
             redirect action:"list", method:"GET"
@@ -75,12 +75,12 @@ class TaskController {
 
     def edit(Task taskInstance) {
         JSON.use('deep')
-        taskInstance?.data?.sort(true){ it.id }
+        taskInstance?.data?.sort(true){ it.id } //TODO порядок постоянно меняется
         respond taskInstance
     }
 
     @Transactional
-    def update() { //TODO заменять точку в Doulbe на запятую на сервере или клиенте (или конвертировать) (в save тоже и еще параметр a)
+    def update() {
         def jsonObject = request.JSON;
         Task taskInstance = Task.get(jsonObject.task.id as Long)
 

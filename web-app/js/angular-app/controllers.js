@@ -39,6 +39,16 @@ function changeCountData(taskData, countData) {
     }
 }
 
+/** Конвертирует value в Float */
+function convertValue(task, taskData) {
+    task.smoothingParameter = parseFloat(task.smoothingParameter)
+    for (var i=0; i<taskData.length; i++) {
+        taskData[i].value = parseFloat(taskData[i].value);
+    }
+
+    return taskData
+}
+
 /** TaskCreateController */
 controllers.controller('TaskCreateController', ['$scope', '$http', function($scope, $http) {
 
@@ -52,6 +62,7 @@ controllers.controller('TaskCreateController', ['$scope', '$http', function($sco
 
     /** Сохранение Задачи и ее данных */
     $scope.save = function(actionSave, actionShow) {
+        convertValue($scope.task, $scope.taskData);
         var dataIn = {task: $scope.task, taskData: $scope.taskData};
         $http.post(actionSave, dataIn).success(function(data) {
             console.log('OK', data);
@@ -89,6 +100,7 @@ controllers.controller('TaskEditController', ['$scope', '$http', '$location', fu
 
     /** Изменение Задачи и ее данных */
     $scope.update = function(actionUpdate, actionShow) {
+        convertValue($scope.task, $scope.taskData);
         var dataIn = {task: $scope.task, taskData: $scope.taskData};
         $http.put(actionUpdate, dataIn).success(function(data) {
             console.log('success data:', data);
