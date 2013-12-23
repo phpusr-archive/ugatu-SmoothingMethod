@@ -85,11 +85,11 @@ controllers.controller('TaskEditController', ['$scope', '$http', '$location', fu
 
     /** Обновление содержимого страницы */
     $scope.updateView = function(a) {
-        $http.get($location.absUrl() + '.json').success(function(task) {
-            console.log('success data:', task);
-            $scope.task = task;
-            $scope.countData = task.data.length;
-            $scope.taskData = task.data;
+        $http.get($location.absUrl() + '.json').success(function(data) {
+            console.log('success data:', data);
+            $scope.task = data.task;
+            $scope.countData = data.taskData.length;
+            $scope.taskData = data.taskData;
         });
     };
 

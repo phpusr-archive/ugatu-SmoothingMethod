@@ -42,7 +42,6 @@ class TaskController {
                     render AE as JSON
                     return
                 }
-                JSON.use(null)
                 render dataWrapper as JSON
             }
         }
@@ -74,9 +73,13 @@ class TaskController {
     }
 
     def edit(Task taskInstance) {
-        JSON.use('deep')
-        taskInstance?.data?.sort(true){ it.id } //TODO порядок постоянно меняется
-        respond taskInstance
+        withFormat {
+            form taskInstance: taskInstance
+            json {
+                def taskData = taskInstance?.data?.sort(){ it.id }
+                respond ([task: taskInstance, taskData: taskData])
+            }
+        }
     }
 
     @Transactional
