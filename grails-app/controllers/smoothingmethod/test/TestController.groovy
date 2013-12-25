@@ -2,9 +2,13 @@ package smoothingmethod.test
 
 import grails.converters.JSON
 import grails.converters.XML
+import grails.web.Action
+import groovy.util.slurpersupport.NodeChildren
+import org.codehaus.groovy.grails.commons.GrailsClass
 import smoothingmethod.method.Task
 import smoothingmethod.method.TaskData
 
+import java.lang.reflect.Method
 import java.text.SimpleDateFormat
 
 /**
@@ -13,8 +17,26 @@ import java.text.SimpleDateFormat
 class TestController {
 
     def index() {
-        //TODO Вывод всех action
-        render 'TODO Вывод всех action'
+        def actions = []
+        GrailsClass controller = grailsApplication.controllerClasses.find{it.clazz.name == this.class.name}
+        Class controllerClass = controller.clazz
+
+        // get the actions defined as methods (Grails 2)
+        controllerClass.methods.each { Method method ->
+            if (method.getAnnotation(Action)) {
+                actions << method.name
+            }
+        }
+
+        def out = new StringBuilder()
+        out << "<html>"
+        out << "<h1>${controller.naturalName}</h1>"
+        out << "<ul>"
+        actions.each { out << "<li>${g.link(action: it, it)}</li>" }
+        out << "</ul>"
+        out << "</html>"
+
+        render out
     }
 
     /** Проверка получения массива параметров */
@@ -63,8 +85,8 @@ class TestController {
         def htmlParser = slurper.parse('http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml')
         def currencyRates = htmlParser.Cube.Cube
 
-        importIntoTask(currencyRates)
         renderHtml(currencyRates)
+        //importIntoTask(currencyRates)
     }
 
     /** Импорт курса валют в качестве Задачи */
@@ -88,7 +110,7 @@ class TestController {
     }
 
     /** Вывод курса валют (html) */
-    protected void renderHtml(def currencyRates) {
+    protected void renderHtml(NodeChildren currencyRates) {
         render {
             html {
                 table(border: '1px') {

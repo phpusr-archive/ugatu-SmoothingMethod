@@ -17,5 +17,6 @@
 
         <g:submitButton name="submit" />
     </g:form>
+    <p>Check console after submit!</p>
 </body>
 </html>
