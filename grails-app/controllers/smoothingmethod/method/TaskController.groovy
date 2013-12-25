@@ -20,7 +20,9 @@ class TaskController {
         respond taskList
     }
 
-    def show(Task taskInstance, Double a) { //TODO a парсится нормально с точкой, а объект из params, кажется нормально создается с запятой: new News(params)
+    def show(Task taskInstance, Double a) {
+        /* TODO "a" парсится нормально с точкой, а объект из params, нормально создается с запятой: def task = new Task(smoothingParameter: '1.9') (Проверил, так и есть!)
+            Точно также работает и в методе POST */
         if (!taskInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'task.label'), params.id])
             redirect action:"list", method:"GET"

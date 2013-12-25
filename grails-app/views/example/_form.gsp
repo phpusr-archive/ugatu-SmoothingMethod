@@ -23,7 +23,7 @@
 		<g:message code="example.doubleVal.label" default="Double Val" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="doubleVal" value="${fieldValue(bean: exampleInstance, field: 'doubleVal')}" required=""/>
+	<g:field name="doubleVal" value="${fieldValue(bean: exampleInstance, field: 'doubleVal')}" required=""/> %{--TODO fieldValue используется чтобы была запятая для веществ. части--}%
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: exampleInstance, field: 'dateVal', 'error')} required">
