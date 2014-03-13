@@ -27,6 +27,7 @@
             <ul>
                 <li><g:link class="home" controller="task"><g:message code="default.home.label"/></g:link></li>
                 <li><g:link class="list" controller="task" action="index"><g:message code="task.title.label" /></g:link></li>
+                <li><g:link class="list" uri="/controllers" ><g:message code="default.controllers.page.title" /></g:link></li>
             </ul>
         </div>
 
